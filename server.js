@@ -1,0 +1,60 @@
+const express = require("express");
+const cors = require("cors");
+const app = express();
+app.use(cors());
+app.use(express.static("public"));
+
+const reviews = [
+    [
+
+        {
+            "companyName": "Equal Exchange",
+            "review": "Mackin Pallet has been fantastic to work with. We, here at Equal Exchange, have been partners with Dan and Jennifer for about 5 years. The pallet condition, which is very important in this industry, along with the service provided is top notch. We greatly value our partnership with Mackin Pallet and know we can depend on them throughout the year. ", 
+            "date": "September 19th, 2024", 
+            "reviewersName": "Steve Bolton" , 
+            "image" : "MPTimages/EE.jpg" 
+    
+        },
+        {
+            "companyName":"Spilldam Environmental Inc." ,
+            "review":"We have been a customer of Mackin Pallet and Trucking since 2010.  Dan provides a great product and exception service!", 
+            "date": "September 19th, 2024", 
+            "reviewersName": "Tim Prevost", 
+            "image" : "MPTimages/Spilldam.jpg" 
+        },
+        {
+            "companyName": "Suncor Stainless Inc.",
+            "review":"Suncor Stainless inc has been buying pallets from Mackin for over 20 years.  The prices & quality are great, and the service couldn’t be better.", 
+            "date": "September 20th, 2024", 
+            "reviewersName": "Melissa Perkins ", 
+            "image" : "MPTimages/Suncor.jpg"
+        },
+        {
+            "companyName":"Custom Blends/ Cindy’s Kitchen Inc. ",
+            "review": "I’ve been working with Mackin Pallet & Trucking for a half dozen years. Dan’s service is second to none. He builds our pallets to spec and has same day delivery service. I have recently used his shipping service which was very convenient for me. Dan builds a quality product at a competitive price. His service is the best! It’s a perfect fit for my company's needs.", 
+            "date": "October 10th, 2024" , 
+            "reviewersName": "Michael Iolli", 
+            "image" : "MPTimages/C.png"
+        },
+        {
+            "companyName":"Gem Gravure Co., Inc.- Massachusetts",
+            "review": "Gem Gravure has been calling Mackin Pallet since November of 2021 for the removal of used and damaged pallets. Dan Mackin has always provided prompt service and they are a very reliable supplier. The same can be said for the office staff. They were very receptive when we suggested ACH payment versus check payment when paying invoices for their services. We are very happy with our relationship with Mackin Pallet.",
+            "date": "October 10th, 2024" , 
+            "reviewersName": "Kim Cushing", 
+            "image" : "MPTimages/gem.jpg"
+        }
+    ]
+]; 
+   
+app.get("/",(req,res)=>{
+    res.sendFile(__dirname + "/index.html");
+});
+
+app.get("/api/reviews", (req,res)=>{
+    res.json(reviews);
+});
+
+
+app.listen(3002, () => {
+    console.log("Listening....");
+});
