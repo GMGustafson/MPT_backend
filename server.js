@@ -79,10 +79,10 @@ app.get("/api/reviews", (req,res)=>{
     res.json(reviews);
     
 });
-app.get("/api/contacts", (req,res)=>{
-    res.json(contacts); 
+app.get("/api/contacts", (req, res) => {
+    res.json(contacts);
 });
 
-app.listen(3002, () => {
+app.listen(3003, () => {
     console.log("Listening.... ");
 });
