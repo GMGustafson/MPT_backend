@@ -1,8 +1,22 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const Joi = require("joi");
 app.use(cors());
 app.use(express.static("public"));
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "./public/images/");
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname);
+    },
+  });
+
+const upload = multer({ storage: storage });
+  
 
 const reviews = [
         {
@@ -77,8 +91,11 @@ app.get("/",(req,res)=>{
 
 app.get("/api/reviews", (req,res)=>{
     res.json(reviews);
-    
 });
+
+
+
+
 app.get("/api/contacts", (req, res) => {
     res.json(contacts);
 });
@@ -86,3 +103,4 @@ app.get("/api/contacts", (req, res) => {
 app.listen(3003, () => {
     console.log("Listening.... ");
 });
+
