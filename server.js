@@ -94,6 +94,48 @@ app.get("/api/reviews", (req,res)=>{
 });
 
 
+app.post("/api/reviews",upload.single("img"), (req, res)) =>{
+    console.log("in a post request");
+    
+    const result = validateReview(req.body); 
+
+    if (result.error) {
+        res.status(400).send(result.error.details[0].message);
+        console.log("I have an error");
+        return;
+    }; 
+
+    const Review = 
+    { 
+        companyName: req.body.companyName, 
+        review: req.body.review, 
+        reviewersName: req.body.reviewersName, 
+        date: req.body.date, 
+    }; 
+
+    if (req.file) {
+       reviews.image = req.file.filename;
+      }
+
+      Reviews.push(Review);
+
+      console.log(Review);
+      res.status(200).send(Review);
+    };
+    
+    const validateReview = (Review) => {
+      const schema = Joi.object({
+        companyName: Joi.string().min().required(),
+        review: Joi.string().min().required(),
+        reviewersName: Joi.string().min().required(),
+        date: Joi.string().min().required(),
+      });
+
+      return schema.validate(Review);
+    };
+
+
+ 
 
 
 app.get("/api/contacts", (req, res) => {
