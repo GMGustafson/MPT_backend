@@ -114,10 +114,10 @@ app.post("/api/reviews", upload.single("img"), (req, res) => {
     }; 
 
     if (req.file) {
-       reviews.image = req.file.filename;
+       Review.image = req.file.filename;
       }
 
-      Reviews.push(Review);
+      reviews.push(Review);
 
       console.log(Review);
       res.status(200).send(Review);
