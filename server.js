@@ -61,6 +61,33 @@
     },
     ];
 
+    const contacts = [
+        {
+            "id": "papa",
+            "name": "Daniel E. Mackin",
+            "position": "President",
+            "phone": "(508) - 584 - 4248",
+            "email": "mackinpallet@gmail.com",
+            "image": "papa.jpg"
+        },
+        {
+            "id": "mom",
+            "name": "Jennifer P. Mackin Bruce",
+            "position": "Chief Financial Officer",
+            "phone": "(508) - 612 - 0831",
+            "email": "mackinpallet@gmail.com",
+            "image": "mom.jpg"
+        },
+        {
+            "id": "nana",
+            "name": "Rhonda M. Mackin",
+            "position": "Clerk",
+            "phone": "(508) - 584 - 4248",
+            "email": "mackinpallet@gmail.com",
+            "image": "nana.jpg"
+        }
+    ];
+
     app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
     });
@@ -68,6 +95,10 @@
     app.get("/api/reviews", (req, res) => {
     res.json(reviews);
     });
+
+    app.get("/api/contacts", (req, res) => {
+        res.json(contacts);
+        });
 
     app.post("/api/reviews", upload.single("img"), (req, res) => {
     console.log("In a post request");
@@ -99,10 +130,10 @@
 
     const validateReview = (review) => {
     const schema = Joi.object({
-        companyName: Joi.string().min().required(),
-        review: Joi.string().min().required(),
+        companyName: Joi.string().min(3).required(),
+        review: Joi.string().min(3).required(),
         reviewersName: Joi.string().min(3).required(),
-        date: Joi.string().min().required(),
+        date: Joi.string().min(3).required(),
     });
 
     return schema.validate(review);
