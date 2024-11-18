@@ -94,7 +94,7 @@ app.get("/api/reviews", (req,res)=>{
 });
 
 
-app.post("/api/reviews",upload.single("img"), (req, res)) =>{
+app.post("/api/reviews", upload.single("img"), (req, res) => {
     console.log("in a post request");
     
     const result = validateReview(req.body); 
@@ -121,14 +121,14 @@ app.post("/api/reviews",upload.single("img"), (req, res)) =>{
 
       console.log(Review);
       res.status(200).send(Review);
-    };
+    });
     
     const validateReview = (Review) => {
       const schema = Joi.object({
-        companyName: Joi.string().min().required(),
-        review: Joi.string().min().required(),
-        reviewersName: Joi.string().min().required(),
-        date: Joi.string().min().required(),
+        companyName: Joi.string().min(3).required(),
+        review: Joi.string().min(3).required(),
+        reviewersName: Joi.string().min(3).required(),
+        date: Joi.string().min(3).required(),
       });
 
       return schema.validate(Review);
