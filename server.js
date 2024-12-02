@@ -19,6 +19,7 @@
 
     const reviews = [
     {
+        _id:1,
         companyName: "Equal Exchange",
         review:
         "Mackin Pallet has been fantastic to work with. We, here at Equal Exchange, have been partners with Dan and Jennifer for about 5 years. The pallet condition, which is very important in this industry, along with the service provided is top notch. We greatly value our partnership with Mackin Pallet and know we can depend on them throughout the year.",
@@ -27,6 +28,7 @@
         image: "EE.jpg",
     },
     {
+        _id:2,
         companyName: "Spilldam Environmental Inc.",
         review:
         "We have been a customer of Mackin Pallet and Trucking since 2010.  Dan provides a great product and exceptional service!",
@@ -35,6 +37,7 @@
         image: "Spilldam.jpg",
     },
     {
+        _id:3,
         companyName: "Suncor Stainless Inc.",
         review:
         "Suncor Stainless Inc. has been buying pallets from Mackin for over 20 years. The prices & quality are great, and the service couldn’t be better.",
@@ -43,6 +46,7 @@
         image: "Suncor.jpg",
     },
     {
+        _id:4,
         companyName: "Custom Blends/ Cindy’s Kitchen Inc.",
         review:
         "I’ve been working with Mackin Pallet & Trucking for a half dozen years. Dan’s service is second to none. He builds our pallets to spec and has same day delivery service. I have recently used his shipping service which was very convenient for me. Dan builds a quality product at a competitive price. His service is the best! It’s a perfect fit for my company's needs.",
@@ -51,6 +55,7 @@
         image: "C.png",
     },
     {
+        _id:5,
         companyName: "Gem Gravure Co., Inc.- Massachusetts",
         review:
         "Gem Gravure has been calling Mackin Pallet since November of 2021 for the removal of used and damaged pallets. Dan Mackin has always provided prompt service and they are a very reliable supplier. The same can be said for the office staff. They were very receptive when we suggested ACH payment versus check payment when paying invoices for their services. We are very happy with our relationship with Mackin Pallet.",
@@ -128,18 +133,24 @@
         });
 
     app.put("/api/reviews/:id", upload.single("img"), (req,res) => { 
-        const review = reviews.find((review) => review._id ===parseInt(req.params.id)); 
-
+        console.log("not working"); 
+        console.log("id is " + req.params.id);
+        const review = reviews.find((r) => r._id ===parseInt(req.params.id)); 
+        console.log("not workingg"); 
         if(!review)
         { 
             res.status(404).send("The review with the provided id was not found");
+            console.log("not workinggg"); 
             return;
+           
         }
 
         const result = validateReview(req.body); 
+        console.log("not workinggggg"); 
 
         if(result.error){
             res.status(400).send(result.error.details[0].message);
+            console.log("hi"); 
             return;
         }
 
@@ -157,6 +168,7 @@
     
         app.delete("/api/reviews/:id", (req,res)=>{
             const review = reviews.find((review) => review._id ===parseInt(req.params.id)); 
+            
 
             if(!review){
               res.status(404).send("The review with the provided id was not found");
@@ -166,6 +178,7 @@
             const index = reviews.indexOf(review);
             reviews.splice(index,1);
             res.status(200).send(review);
+            console.log("delete is working"); 
           });
 
     const validateReview = (review) => {
