@@ -158,9 +158,10 @@
         review.review = req.body.review; 
         review.reviewersName = req.body.reviewersName; 
         review.date = req.body.date; 
+        review.img=req.body.img;
 
         if(req.file){
-            review.main_image = req.file.filename;
+            review.image = req.file.filename;
           }
         
           res.status(200).send(review);
