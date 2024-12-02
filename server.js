@@ -2,10 +2,9 @@
     const cors = require("cors");
     const app = express();
     const Joi = require("joi");
-    const multer = require("multer");
-
     app.use(cors());
     app.use(express.static("public"));
+    const multer = require("multer");
 
     const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -101,43 +100,84 @@
         });
 
     app.post("/api/reviews", upload.single("img"), (req, res) => {
-    console.log("In a post request");
+        console.log("In a post request");
 
-    const result = validateReview(req.body);
+        const result = validateReview(req.body);
 
-    if (result.error) {
-        res.status(400).send(result.error.details[0].message);
-        console.log("I have an error");
-        return;
-    }
+        if (result.error) {
+            res.status(400).send(result.error.details[0].message);
+            console.log("I have an error");
+            return;
+        }
 
-    const review = {
-        companyName: req.body.companyName,
-        review: req.body.review,
-        reviewersName: req.body.reviewersName,
-        date: req.body.date,
-    };
+        const review = {
+            companyName: req.body.companyName,
+            review: req.body.review,
+            reviewersName: req.body.reviewersName,
+            date: req.body.date,
+        };
 
-    if (req.file) {
-        review.image = req.file.filename;
-    }
+        if (req.file) {
+            review.image = req.file.filename;
+        }
 
-    reviews.push(review);
+        reviews.push(review);
 
-    console.log(review);
-    res.status(200).send(review);
-    });
+        console.log(review);
+        res.status(200).send(review);
+        });
+
+    app.put("/api/reviews/:id", upload.single("img"), (req,res) => { 
+        const review = reviews.find((review) => review._id ===parseInt(req.params.id)); 
+
+        if(!review)
+        { 
+            res.status(404).send("The review with the provided id was not found");
+            return;
+        }
+
+        const result = validateReview(req.body); 
+
+        if(result.error){
+            res.status(400).send(result.error.details[0].message);
+            return;
+        }
+
+        review.companyName = req.body.companyName; 
+        review.review = req.body.review; 
+        review.reviewersName = req.body.reviewersName; 
+        review.date = req.body.date; 
+
+        if(req.file){
+            review.main_image = req.file.filename;
+          }
+        
+          res.status(200).send(review);
+        });
+    
+        app.delete("/api/reviews/:id", (req,res)=>{
+            const review = reviews.find((review) => review._id ===parseInt(req.params.id)); 
+
+            if(!review){
+              res.status(404).send("The review with the provided id was not found");
+              return;
+            }
+          
+            const index = reviews.indexOf(review);
+            reviews.splice(index,1);
+            res.status(200).send(review);
+          });
 
     const validateReview = (review) => {
-    const schema = Joi.object({
-        companyName: Joi.string().min(3).required(),
-        review: Joi.string().min(3).required(),
-        reviewersName: Joi.string().min(3).required(),
-        date: Joi.string().min(3).required(),
-    });
+        const schema = Joi.object({
+            companyName: Joi.string().min(3).required(),
+            review: Joi.string().min(3).required(),
+            reviewersName: Joi.string().min(3).required(),
+            date: Joi.string().min(3).required(),
+        });
 
-    return schema.validate(review);
-    };
+        return schema.validate(review);
+        };
 
     app.listen(3003, () => {
     console.log("Listening....");
