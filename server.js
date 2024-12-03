@@ -129,7 +129,7 @@
             {id: req.params.id}, fieldsToUpdate 
         )});
         
-        const updatedReview = await House.findOne({_id: req.params.id}); 
+        const updatedReview = await Review.findOne({_id: req.params.id}); 
         res.send(updatedReview); 
 
         app.delete("/api/reviews/:id", async (req,res)=>{
