@@ -120,7 +120,7 @@
         }
 
         const review = {
-            __id: reviews.length+1, 
+            _id: reviews.length+1, 
             companyName: req.body.companyName,
             review: req.body.review,
             reviewersName: req.body.reviewersName,
@@ -159,6 +159,7 @@
             return;
         }
 
+        // review.__id = reviews.length+1,
         review.companyName = req.body.companyName; 
         review.review = req.body.review; 
         review.reviewersName = req.body.reviewersName; 
