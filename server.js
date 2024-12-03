@@ -5,6 +5,10 @@
     app.use(cors());
     app.use(express.static("public"));
     const multer = require("multer");
+    // const mongoose = 
+
+    // mongoose
+    //     .connect 
 
     const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -116,6 +120,7 @@
         }
 
         const review = {
+            __id: reviews.length+1, 
             companyName: req.body.companyName,
             review: req.body.review,
             reviewersName: req.body.reviewersName,
@@ -169,9 +174,10 @@
     
         app.delete("/api/reviews/:id", (req,res)=>{
             const review = reviews.find((review) => review._id ===parseInt(req.params.id)); 
-            
+            console.log("hi, not working");
 
             if(!review){
+               console.log("hi, not working");
               res.status(404).send("The review with the provided id was not found");
               return;
             }
