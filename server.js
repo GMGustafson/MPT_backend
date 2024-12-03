@@ -127,11 +127,10 @@
         
         const wentThrough = await Review.updateOne( 
             {id: req.params.id}, fieldsToUpdate 
-        )});
+        );
         
         const updatedReview = await Review.findOne({_id: req.params.id}); 
-        res.send(updatedReview); 
-
+        res.send(updatedReview); }); 
         app.delete("/api/reviews/:id", async (req,res)=>{
             const review = await Review.findByIdAndDelete(req.params.id); 
             res.send(review); 
