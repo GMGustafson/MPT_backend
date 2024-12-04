@@ -8,10 +8,6 @@
     const mongoose = require("mongoose"); 
     app.use("/uploads", express.static("uploads")); 
 
-
-    // mongoose
-    //     .connect 
-
     const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "./public/images/");
@@ -75,8 +71,8 @@
     });
 
     app.get("/api/reviews/:id", async (req, res) => { 
-        const house = await House.findOne({_id:id}); 
-        res.send(house); 
+        const reviews = await Review.findOne({_id:id}); 
+        res.send(review); 
     }); 
 
     app.get("/api/contacts", (req, res) => {
@@ -102,7 +98,7 @@
             review.img = "images/" + req.file.filename;
         }
 
-        const newReview = await house.save();
+        const newReview = await review.save();
         res.send(newReview);  
         });
 
