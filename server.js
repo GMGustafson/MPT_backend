@@ -127,6 +127,7 @@
         
         const updatedReview = await Review.findOne({_id: req.params.id}); 
         res.send(updatedReview); }); 
+        console.log("hi");
 
         
         app.delete("/api/reviews/:id", async (req,res)=>{
