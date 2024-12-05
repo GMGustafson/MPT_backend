@@ -21,7 +21,7 @@
 
     mongoose 
         .connect("mongodb+srv://GraceMackin:Pn5HltGQcWSpJ25c@mackinpallettrucking.yyxgq.mongodb.net/?retryWrites=true&w=majority&appName=mackinpallettrucking")
-        .then(()=> { console.log("connected to mongodb"); })
+        .then(()=> { console.log("connected to mongodb yayyy"); })
         .catch ((error) => { console.log ("couldn't connect to mongodb", error); })
 
     const reviewsSchema = new mongoose.Schema({ 
