@@ -21,7 +21,7 @@
 
     mongoose 
         .connect("mongodb+srv://GraceMackin:Pn5HltGQcWSpJ25c@mackinpallettrucking.yyxgq.mongodb.net/?retryWrites=true&w=majority&appName=mackinpallettrucking")
-        .then(()=> { console.log("connected to mongodb yayyy"); })
+        .then(()=> { console.log("connected to mongodb yayyy "); })
         .catch ((error) => { console.log ("couldn't connect to mongodb", error); })
 
     const reviewsSchema = new mongoose.Schema({ 
@@ -102,8 +102,10 @@
         res.send(newReview);  
         });
 
-    app.put("/api/reviews/:id", upload.single("img"), async (req,res) => { 
+    app.put("/api/reviews/:id", upload.single("img"), async (req,res) => {
+        console.log("hi"); 
         const result = validateReview(req.body); 
+        
         
         if(result.error){
             res.status(400).send(result.error.details[0].message);
@@ -125,9 +127,13 @@
             {id: req.params.id}, fieldsToUpdate 
         );
         
+        console.log(updatedReview); 
+        console.log(wentThrough); 
         const updatedReview = await Review.findOne({_id: req.params.id}); 
-        res.send(updatedReview); }); 
-        console.log("hi");
+        res.send(updatedReview); 
+    }); 
+        // res.status(200).send(updatedReview);}); 
+        
 
         
         app.delete("/api/reviews/:id", async (req,res)=>{
