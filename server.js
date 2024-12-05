@@ -124,12 +124,14 @@
         }
         
         const wentThrough = await Review.updateOne( 
-            {id: req.params.id}, fieldsToUpdate 
+            {_id: req.params.id}, fieldsToUpdate 
         );
         
-        console.log(updatedReview); 
+        
         console.log(wentThrough); 
         const updatedReview = await Review.findOne({_id: req.params.id}); 
+        
+        console.log(updatedReview);
         res.send(updatedReview); 
     }); 
         // res.status(200).send(updatedReview);}); 
